@@ -1,10 +1,28 @@
+import shutil
+from os import path
 from setuptools import find_packages, setup
+import os 
+
+
+dir_path = path.dirname(path.realpath(__file__))
+
+with open(path.join(dir_path,'version.txt'),'r') as f:
+    ver = f.read()
+
+# clean up directories
+dirs = ['.eggs','build','dist','moyra.egg-info']
+for _dir in dirs:
+    if path.exists(path.join(dir_path,_dir)):
+        shutil.rmtree(path.join(dir_path,_dir))
+
+
+
 setup(
     name='moyra',
     packages=find_packages(include=['moyra','moyra.*']),
-    version='0.1.4.1',
+    version=ver,
     description='Generate Multi-body Symbolic and Numeric Equations of Motion',
-    long_description = open('README.md').read(),
+    long_description = open(path.join(dir_path,'README.md')).read(),
     long_description_content_type="text/markdown",
     author='Fintan Healy',
     author_email = 'fintan.healy@bristol.ac.uk',
